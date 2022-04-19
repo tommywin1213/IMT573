@@ -1,0 +1,9 @@
+"0","ggPredict(model,interactive=TRUE)
+"
+"2","Warning in ggPredict(model, interactive = TRUE) :"
+"2","
+ "
+"2"," maximum three independent variables are allowed
+"
+"1","NULL
+"

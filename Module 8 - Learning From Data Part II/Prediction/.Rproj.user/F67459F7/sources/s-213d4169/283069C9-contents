@@ -1,0 +1,124 @@
+---
+title: 'IMT 573: Problem Set 8'
+subtitle: 'Prediction'
+author: "Tommy Huynh"
+date: 'Due: August 15, 2021'
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+##### Collaborators: <!-- BE SURE TO LIST ALL COLLABORATORS HERE! -->
+
+
+##### Instructions:
+
+Before beginning this assignment, please ensure you have access to R and RStudio; this can be on your own personal computer or on the IMT 573 R Studio Cloud. 
+
+1. Download the `08_ps_prediction.Rmd` file from Canvas or save a copy to your local directory on RStudio Cloud. Supply your solutions to the assignment by editing `08_ps_prediction.Rmd`. 
+
+2. Replace the "YOUR NAME HERE" text in the `author:` field with your own full name. Any collaborators must be listed on the top of your assignment. 
+
+3. Be sure to include well-documented (e.g. commented) code chucks, figures, and clearly written text chunk explanations as necessary. Any figures should be clearly labeled and appropriately referenced within the text. Be sure that each visualization adds value to your written explanation; avoid redundancy -- you do no need four different visualizations of the same pattern.
+
+4.  Collaboration on problem sets is fun and useful, and we encourage it, but each student must turn in an individual write-up in their own words as well as code/work that is their own.  Regardless of whether you work with others, what you turn in must be your own work; this includes code and interpretation of results. The names of all collaborators must be listed on each assignment. Do not copy-and-paste from other students' responses or code.
+
+5. All materials and resources that you use (with the exception of lecture slides) must be appropriately referenced within your assignment.  
+
+6. Remember partial credit will be awarded for each question for which a serious attempt at finding an answer has been shown. Students are \emph{strongly} encouraged to attempt each question and to document their reasoning process even if they cannot find the correct answer. If you would like to include R code to show this process, but it does not run without errors you can do so with the `eval=FALSE` option as follows:
+
+```{r example chunk with a bug, eval=FALSE}
+a + b # these object don't exist 
+# if you run this on its own it with give an error
+```
+
+7. When you have completed the assignment and have **checked** that your code both runs in the Console and knits correctly when you click `Knit`, download and rename the knitted PDF file to `ps7_YourLastName_YourFirstName.pdf`, and submit the PDF file on Canvas.
+
+##### Setup: 
+
+In this problem set you will need, at minimum, the following R packages.
+
+```{r Setup, message=FALSE}
+# Load standard libraries
+library(tidyverse)
+library(gridExtra)
+library(MASS)
+library(pROC)
+library(dplyr)
+library(arm)
+library(randomForest)
+library(Metrics)
+library(knitr) # this will keep code on the page!
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+```
+
+\noindent \textbf{Data:} In this problem set we will use the \texttt{flights} dataset used previously in class. The flights dataset (via the the \textit{nycflights13} library) contains information on flight delays and weather. 
+
+As part of this assignment, we will evaluate the performance of several statistical learning methods.  We will fit our learning models using a set of \emph{training} observations and measure its performance on a set of \emph{test} observations.
+\vspace{1cm}
+
+
+### Problem 1: Discuss the advantages of using a training/test split when evaluating statistical models.
+The advantages of using a training/test split when evaluation statistics models is when you have a large data set, you can separate them to have two seperate models and compare them to ensure accuracy. 
+
+### Problem 2: Predictions with a continuous output variable
+
+#### (a) Load in the flights dataset. Join the flights data to the weather data based on the departure location, date, and hour of the flight. Exclude data entries which cannot be joined to weather data. Copy the joined data so we can refer to it later. 
+```{r}
+library(nycflights13)
+data(flights)
+data(weather)
+
+nyc_flights <- merge(flights, weather)
+```
+
+#### (b) From the joined data, keep only the following columns as we build our first model: departure delay, origin, departure time, temperature, wind speed, precipitation, and visibility. Omit observations that do not have all of these variables present.
+```{r}
+nyc_flights <- nyc_flights[, c(9, 4, 7, 20, 24, 26, 28)]
+nyc_flights <- nyc_flights[complete.cases(nyc_flights),]
+```
+#### (c) Split your data into a \emph{training} and \emph{test} set based on an 80-20 split. In other words, 80\% of the observations will be in the training set and 20\% will be in the test set. Remember to set the random seed.
+```{r}
+first <- nyc_flights[1:65380,]
+second <- nyc_flights[65380:326898,]
+```
+#### (d) Build a linear regression model to predict departure delay using the subset of variables indicated in (3.). What is the RMSE on the training set? What is the RMSE on the test set? Which is higher and is this expected?
+```{r}
+m1 <- lm(dep_delay ~ origin + dep_time + temp + wind_speed + precip + visib, data = first)
+summary(m1)
+
+m2 <- lm(dep_delay ~ origin + dep_time + temp + wind_speed + precip + visib, data = second)
+summary(m2)
+
+first_mse <- mse(first$dep_delay, predict(m1, first))
+second_mse <- mse(second$dep_delay, predict(m2, second))
+```
+The RMSE in the test set is 970 whereas the RMSE in the training set is 1589.  The training set is higher than expected. 
+
+#### (e) Now, improve upon these prediction results by including additional variables in your model. Make sure you keep at least 95% of original data (i.e. about 320K observations across both the training and test datasets). Do not include the arrival time, scheduled arrival time, or the arrival delay in your model. Use the same observations as above for the training and test sets (i.e. keep the same rows but add different variables/columns at your discretion). Can you improve upon the training RMSE? Once you have a model that you feel adequately improves the training RMSE, does your model improve the test RMSE? Which variables did you include in your model?
+```{r}
+
+```
+
+### EXTRA CREDIT: Predictions with a categorical output (classification)
+
+In this problem our goal is to predict the survival of passengers. First, let's train a logistic regression model for survival that controls for the socioeconomic status of the passenger. 
+
+#### (a) Load in the `titanic` data. Split your data into a \emph{training} and \emph{test} set based on an 80-20 split. In other words, 80\% of the observations will be in the training set and 20\% will be in the test set. Remember to set the random seed.
+
+#### (b) Fit the model described above (i.e. one that only takes into account socioeconomic status) using the \texttt{glm} function in R. 
+
+#### (c) What might you conclude based on this model about the probability of survival for lower class passengers?
+
+#### (d) Predict the survival of passengers for each observation in your test set using the model fit in Problem 2. Save these predictions as \texttt{yhat}.
+
+#### (e) Use a threshold of 0.5 to classify predictions. What is the number of false positives on the test data? Interpret this in your own words.
+
+#### (f) Using the \texttt{roc} function, plot the ROC curve for this model. Discuss what you find.
+
+### (g) Suppose we use the data to construct a new predictor variable based on a passenger's listed title (i.e. Mr., Mrs., Miss., Master). Why might this be an interesting variable to help predict passenger survival?
+
+#### (h) Fit a second logistic regression model including this new feature. Use the \texttt{summary} function to look at the model. Did this new feature improve the model? 
+
+#### (i) Comment on the overall fit of this model. For example, you might consider exploring when misclassification occurs.

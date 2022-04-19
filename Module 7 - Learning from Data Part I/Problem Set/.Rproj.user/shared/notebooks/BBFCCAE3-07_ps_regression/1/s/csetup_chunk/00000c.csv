@@ -1,0 +1,11 @@
+"0","library(MASS) # Modern applied statistics functions
+"
+"2","
+Attaching package: ‘MASS’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    select
+
+"

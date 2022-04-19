@@ -1,0 +1,6 @@
+"0","sample_mean <- mean(fathers_sons$fheight)"
+"0","assumed_mean <- (mean(fathers_sons$fheight)+mean(fathers_sons$sheight)/2)"
+"0","standard_dev <- sd(fathers_sons$fheight)"
+"0","n <- sqrt(nrow(fathers_sons)*2)"
+"0",""
+"0","t <- ((sample_mean - assumed_mean) / (standard_dev/n))"

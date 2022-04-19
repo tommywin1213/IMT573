@@ -1,0 +1,27 @@
+{
+    "id": "233705A0",
+    "path": "/cloud/project/06_lab_condprob.Rmd",
+    "project_path": "06_lab_condprob.Rmd",
+    "type": "r_markdown",
+    "hash": "2062752419",
+    "contents": "",
+    "dirty": false,
+    "created": 1623562797419.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "62,0",
+        "scrollLine": "54",
+        "last_setup_crc32": "018a3881d238dd33"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625682505,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625682505907,
+    "read_only": false,
+    "read_only_alternatives": []
+}

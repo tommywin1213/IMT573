@@ -1,0 +1,11 @@
+\usepackage{xcolor}
+\usepackage{framed}
+
+\setlength{\fboxsep}{.8em}
+
+\newenvironment{callout}{
+  \definecolor{shadecolor}{rgb}{.2, 0, .44}  % purple
+  \color{white}8
+  \begin{shaded*}}
+ {\end{shaded*}
+ }

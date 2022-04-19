@@ -1,0 +1,7 @@
+"0","possible.p <- seq(0, 1, by = 0.001)"
+"0","qplot(possible.p,"
+"0","      sapply(possible.p, function (p) {likelihood(sequence, p)}),"
+"0","      geom = 'line',"
+"0","      main = 'Likelihood as a Function of P',"
+"0","      xlab = 'P',"
+"0","      ylab = 'Likelihood')"

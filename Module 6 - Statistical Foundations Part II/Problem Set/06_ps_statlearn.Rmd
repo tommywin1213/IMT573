@@ -1,0 +1,105 @@
+---
+title: 'IMT 573: Problem Set 6'
+subtitle: 'Statistical Learning'
+author: "Tommy Huynh"
+date: 'Due: August 01, 2021'
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+##### Collaborators: <!-- BE SURE TO LIST ALL COLLABORATORS HERE! -->
+
+
+##### Instructions:
+
+Before beginning this assignment, please ensure you have access to R and RStudio; this can be on your own personal computer or on the IMT 573 R Studio Cloud. 
+
+1. Download the `06_ps_statlearn.Rmd` file from Canvas or save a copy to your local directory on RStudio Cloud. Supply your solutions to the assignment by editing `06_ps_statlearn.Rmd`. 
+
+2. Replace the "YOUR NAME HERE" text in the `author:` field with your own full name. Any collaborators must be listed on the top of your assignment. 
+
+3. Be sure to include well-documented (e.g. commented) code chucks, figures, and clearly written text chunk explanations as necessary. Any figures should be clearly labeled and appropriately referenced within the text. Be sure that each visualization adds value to your written explanation; avoid redundancy -- you do no need four different visualizations of the same pattern.
+
+4.  Collaboration on problem sets is fun and useful, and we encourage it, but each student must turn in an individual write-up in their own words as well as code/work that is their own.  Regardless of whether you work with others, what you turn in must be your own work; this includes code and interpretation of results. The names of all collaborators must be listed on each assignment. Do not copy-and-paste from other students' responses or code.
+
+5. All materials and resources that you use (with the exception of lecture slides) must be appropriately referenced within your assignment.  
+
+6. Remember partial credit will be awarded for each question for which a serious attempt at finding an answer has been shown. Students are \emph{strongly} encouraged to attempt each question and to document their reasoning process even if they cannot find the correct answer. If you would like to include R code to show this process, but it does not run without errors you can do so with the `eval=FALSE` option as follows:
+
+```{r example chunk with a bug, eval=FALSE}
+a + b # these object don't exist 
+# if you run this on its own it with give an error
+```
+
+7. When you have completed the assignment and have **checked** that your code both runs in the Console and knits correctly when you click `Knit`, download and rename the knitted PDF file to `ps6_YourLastName_YourFirstName.pdf`, and submit the PDF file on Canvas.
+
+##### Setup: 
+
+In this problem set you will need, at minimum, the following R packages.
+
+```{r Setup, message=FALSE}
+# Load standard libraries
+library(tidyverse)
+library(gridExtra)
+library(knitr) # this will keep code on the page!
+library(ggplot2)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+```
+
+### Problem 1: Are sons taller than fathers? 
+
+Here we analyze the dataset of fathers' and sons' height, used by Pearson and which we saw in the last problem set.  It contains two variables, fathers' height and sons' height. If you take a simple mean, you see that in average sons are taller than fathers.  But can this difference just be due to chance? Let's find out.
+
+#### (a) To begin load the \texttt{fatherson.csv.bz2} data. Create density plots of both heights on the same figure.  Comment the plots.  What do they look like?  What do they suggest in terms of fathers' and sons' relative height?
+```{r}
+#This code reads the csv file, it then creates a plot using ggplot 
+fathers_sons <- read.csv(file = "data/fatherson.csv.bz2", head = TRUE, sep='\t')
+
+p <- ggplot() +
+      geom_density(data=fathers_sons, aes(x=fheight)) + 
+      geom_density(data=fathers_sons, aes(x=sheight)) 
+
+print(p)
+
+```
+This visual suggests that a sons height is largely correlated to their fathers height 
+
+#### (b) But is this difference statistically significant?  Let's do a $t$-test.  Here I ask you to \emph{compute yourself the $t$-value}, do not use any pre-existing functions!  What do you find? Why did you use/did you not use pooled standard deviations?  Explain!
+```{r}
+sample_mean <- mean(fathers_sons$fheight)
+assumed_mean <- ((mean(fathers_sons$fheight)+mean(fathers_sons$sheight))/2)
+standard_dev <- sd(fathers_sons$fheight)
+n <- sqrt(nrow(fathers_sons))
+
+t <- ((sample_mean - assumed_mean) / (standard_dev/n))
+```
+
+\textcolor{blue}{Hint: read OIS 7.3}
+
+#### (c) Look up the $t$-distribution table.  (Or compute the relevant quantiles).  What is the likelihood that such a $t$ value happens just by random chance? \textcolor{blue}{Hint: be sure to consider the \emph{degrees of freedom} in current case carefully!}
+Less than 1%
+
+#### (d) Based on your above analysis, state clearly your conclusion to the question - are sons taller than fathers? 
+Based on my analysis, it seems that there is a correlation where sons are taller than their fathers. 
+
+### Problem 2: Fathers and Sons - the Monte Carlo approach
+
+Next, let's re-visit the fathers and sons height, but this time by doing Monte Carlo analysis on a computer.  You will proceed as follows: create two samples of random normals, similar to the data above, using the mean and standard deviation over both fathers and sons.  Call one of these samples ``fathers'' and the other ``sons''.  What is the difference in their means?  And now you repeat this exercise many times and see if you can get as big a difference as what you saw above in the data.
+
+#### (a) First, compute the overall mean and standard deviation of combined fathers' and sons' heights. Now create two sets of normal random variables, both with the same mean and standard deviation that you just computed above.  Call one of  these `fathers` and the other `sons`. What is the father-son mean difference?  Compare the result with that you found in the previous problem.
+```{r}
+total_mean <- colMeans(fathers_sons[,c('fheight','sheight')], na.rm = TRUE)
+```
+The mean for both is 173, while the mean for fathers is 172 and for sons is 174. 
+#### (b) Now repeat the previous question a large number of times $R$ (1000 or more).  Each time store the difference, so you end up with $R$ different values for the difference. What is the mean of the difference values?  Explain what do you get.  What is it standard deviation?  Compare it to that you computed in the previous problem for the difference in data (when doing $t$-test). What is the largest difference (in absolute value)?
+```{r}
+
+```
+
+#### (c) Find the 95\% quantile of (the absolute value) your difference. Compare this number to the actual father-son difference you found in the data.
+\textcolor{blue}{Hint: use the R function \texttt{quantile} for this.}
+```{r}
+
+```

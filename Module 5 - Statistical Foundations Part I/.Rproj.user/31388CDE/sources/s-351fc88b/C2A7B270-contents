@@ -1,0 +1,73 @@
+---
+title: 'IMT 573: Problem Set 5'
+subtitle: 'Descriptive Data Analysis'
+author: "YOUR NAME HERE"
+date: 'Due: July 25, 2021'
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+##### Collaborators: <!-- BE SURE TO LIST ALL COLLABORATORS HERE! -->
+
+
+##### Instructions:
+
+Before beginning this assignment, please ensure you have access to R and RStudio; this can be on your own personal computer or on the IMT 573 R Studio Cloud. 
+
+1. Download the `05_ps_descdataanalysis.Rmd` file from Canvas or save a copy to your local directory on RStudio Cloud. Supply your solutions to the assignment by editing `05_ps_descdataanalysis.Rmd`. 
+
+2. Replace the "YOUR NAME HERE" text in the `author:` field with your own full name. Any collaborators must be listed on the top of your assignment. 
+
+3. Be sure to include well-documented (e.g. commented) code chucks, figures, and clearly written text chunk explanations as necessary. Any figures should be clearly labeled and appropriately referenced within the text. Be sure that each visualization adds value to your written explanation; avoid redundancy -- you do no need four different visualizations of the same pattern.
+
+4.  Collaboration on problem sets is fun and useful, and we encourage it, but each student must turn in an individual write-up in their own words as well as code/work that is their own.  Regardless of whether you work with others, what you turn in must be your own work; this includes code and interpretation of results. The names of all collaborators must be listed on each assignment. Do not copy-and-paste from other students' responses or code.
+
+5. All materials and resources that you use (with the exception of lecture slides) must be appropriately referenced within your assignment.  
+
+6. Remember partial credit will be awarded for each question for which a serious attempt at finding an answer has been shown. Students are \emph{strongly} encouraged to attempt each question and to document their reasoning process even if they cannot find the correct answer. If you would like to include R code to show this process, but it does not run without errors you can do so with the `eval=FALSE` option as follows:
+
+```{r example chunk with a bug, eval=FALSE}
+a + b # these object don't exist 
+# if you run this on its own it with give an error
+```
+
+7. When you have completed the assignment and have **checked** that your code both runs in the Console and knits correctly when you click `Knit`, download and rename the knitted PDF file to `ps4_YourLastName_YourFirstName.pdf`, and submit the PDF file on Canvas.
+
+##### Setup: 
+
+In this problem set you will need, at minimum, the following R packages.
+
+```{r Setup, message=FALSE}
+# Load standard libraries
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(knitr) # this will keep code on the page!
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+```
+
+#### Problem 1: Comic Books Are Still Made By Men, For Men And About Men
+
+In this problem set, we will recreate some of the data analysis, specifically data visualizations used to support the article [https://fivethirtyeight.com/features/women-in-comic-books/](Comic Books Are Still Made By Men, For Men And About Men).
+
+First, use the following code to load the data. 
+
+```{r load data, message=FALSE}
+# Load the data
+urlfile="https://raw.githubusercontent.com/fivethirtyeight/data/master/comic-characters/dc-wikia-data.csv"
+dc_comics<-read_csv(url(urlfile))
+
+urlfile="https://raw.githubusercontent.com/fivethirtyeight/data/master/comic-characters/marvel-wikia-data.csv"
+marvel_comics<-read_csv(url(urlfile))
+marvel_comics$YEAR <- marvel_comics$Year
+```
+
+##### (a) Visualization Recreation
+
+Next, choose one of the data visualizations in the article to recreate. Be clear which you are aiming to reproduce. 
+
+##### (b) Reflection
+
+After producing your own visualization, comments on your ability to recreate the visual from the article exactly. Are there places where you see discrepancies? Why might this be the case? Do you need any additional information not present in the article to be able to do this?

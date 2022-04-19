@@ -1,0 +1,5 @@
+"0","# Load standard libraries"
+"0","library(tidyverse)"
+"0","library(knitr) # this will keep code on the page!"
+"0","library(ggplot2)"
+"0","opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)"

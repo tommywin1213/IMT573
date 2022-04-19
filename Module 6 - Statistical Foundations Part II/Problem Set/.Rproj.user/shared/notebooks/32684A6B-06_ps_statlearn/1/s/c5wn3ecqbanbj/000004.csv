@@ -1,0 +1,5 @@
+"0","total_sd <- colSD(fathers_sons[,c('fheight','sheight')], na.rm = TRUE)
+"
+"2","Error in colSD(fathers_sons[, c(""fheight"", ""sheight"")], na.rm = TRUE) : 
+  could not find function ""colSD""
+"

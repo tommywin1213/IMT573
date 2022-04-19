@@ -1,0 +1,26 @@
+{
+    "id": "31A15CC1",
+    "path": "/cloud/project/06_ps_statlearn.Rmd",
+    "project_path": "06_ps_statlearn.Rmd",
+    "type": "r_markdown",
+    "hash": "1036877349",
+    "contents": "",
+    "dirty": false,
+    "created": 1623565095788.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "46,57",
+        "scrollLine": "30"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625682573,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625682573746,
+    "read_only": false,
+    "read_only_alternatives": []
+}

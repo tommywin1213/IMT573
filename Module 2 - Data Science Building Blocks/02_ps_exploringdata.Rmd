@@ -1,0 +1,138 @@
+---
+title: 'IMT 573: Problem Set 2'
+subtitle: 'Exploring Data'
+author: "Tommy Huynh"
+date: 'Due: July 4, 2021'
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+##### Collaborators: <!-- BE SURE TO LIST ALL COLLABORATORS HERE! -->
+
+
+##### Instructions:
+
+Before beginning this assignment, please ensure you have access to R and RStudio; this can be on your own personal computer or on the IMT 573 R Studio Cloud. 
+
+1. Download the `02_ps_exploringdata.Rmd` file from Canvas or save a copy to your local directory on RStudio Cloud. Supply your solutions to the assignment by editing `02_ps_exploringdata.Rmd`. 
+
+2. Replace the "YOUR NAME HERE" text in the `author:` field with your own full name. Any collaborators must be listed on the top of your assignment. 
+
+3. Be sure to include well-documented (e.g. commented) code chucks, figures, and clearly written text chunk explanations as necessary. Any figures should be clearly labeled and appropriately referenced within the text. Be sure that each visualization adds value to your written explanation; avoid redundancy -- you do no need four different visualizations of the same pattern.
+
+4.  Collaboration on problem sets is fun and useful, and we encourage it, but each student must turn in an individual write-up in their own words as well as code/work that is their own.  Regardless of whether you work with others, what you turn in must be your own work; this includes code and interpretation of results. The names of all collaborators must be listed on each assignment. Do not copy-and-paste from other students' responses or code.
+
+5. All materials and resources that you use (with the exception of lecture slides) must be appropriately referenced within your assignment.  
+
+6. Remember partial credit will be awarded for each question for which a serious attempt at finding an answer has been shown. Students are \emph{strongly} encouraged to attempt each question and to document their reasoning process even if they cannot find the correct answer. If you would like to include R code to show this process, but it does not run without errors you can do so with the `eval=FALSE` option as follows:
+
+```{r example chunk with a bug, eval=FALSE}
+a + b # these object don't exist 
+# if you run this on its own it with give an error
+```
+
+7. When you have completed the assignment and have **checked** that your code both runs in the Console and knits correctly when you click `Knit`, download and rename the knitted PDF file to `ps2_YourLastName_YourFirstName.pdf`, and submit the PDF file on Canvas.
+
+##### Setup
+
+In this problem set you will need, at minimum, the following R packages.
+
+```{r Setup, message=FALSE}
+# Load standard libraries
+library(tidyverse) # This library gives us access to all the functions we will use
+library(nycflights13) # This library provides the data we will use
+library(ggplot2)
+```
+
+#### Problem 1: Exploring the NYC Flights Data
+
+In this problem set we will use the data on all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013. You can find this data in the `nycflights13` R package. 
+
+```{r}
+# Load the nycflights13 library which includes data on all
+# lights departing NYC
+data(flights)
+# Note the data itself is called flights, we will make it into a local df
+# for readability
+flights <- tbl_df(flights)
+# Look at the help file for information about the data
+# ?flights
+flights
+
+```
+
+##### (a) Importing and Inspecting Data
+
+Load the data and describe in a short paragraph how the data was collected and what each variable represents. Perform a basic inspection of the data and discuss what you find.
+
+The data was collected by the Bureau of Transportation Statistics.The data has all airline on-time data for all flights departing from New York City in 2013. It also has information regarding airlines, airports, weather, and specific planes. 
+
+```{r}
+summary(flights)
+```
+
+According to the summary statistics, the average departure delay was 12 minutes, and the average arrive delay was close to 7 minutes for the year 2013. 
+
+##### (b) Formulating Questions
+
+Consider the NYC flights data. Formulate two motivating questions you want to explore using this data. Describe why these questions are interesting and how you might go about answering them.
+
+A good question would be what airlines are operating flights out of New York City. I think this is a good question because it gives us knowledge on what is available to get out of the city. 
+
+Another good question I would ask is what airline flew the most flights out of NYC in 2013. I think this is a good question because we can then determine which airline has the largest operating presence in NYC. 
+
+##### (c) Exploring Data
+
+For each of the questions you proposed in Problem 1b, perform an exploratory data analysis designed to address the question. At a minimum, you should produce two visualizations related to each question. Be sure to describe what the visuals show and how they speak to your question of interest. 
+
+This code removes all duplicates of carriers so that only one will exist in the data frame, giving us a list of all carriers that fly routes in and out of NYC. 
+
+```{r}
+airlines <- flights
+airlines <- airlines[!duplicated(airlines$carrier),]
+airlines <- airlines$carrier
+```
+
+This barplot contains the total flight count for the year 2013 for each carrier:
+
+```{r}
+flight_count <- count(flights, vars = carrier)
+as.data.frame(flight_count)
+ggplot(flight_count, aes(x=vars, y=n)) +
+  geom_bar(stat="identity") +
+  labs(title = "Number of Flights Flown Out of NYC", x = "Airline", y = "Number of Flights")
+```
+
+This piechart contains the total flight count for the year 2013 for each carrier:
+
+```{r}
+ggplot(flight_count, aes(x="", y=n, fill=vars)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)
+```
+
+This code aggregates the total minutes of arrival delay for each carrier. It then calculates the total amount of flights for each carrier and calculates the mean arrival delay. 
+```{r}
+number_flights <- count(flights, carrier)
+
+arrive_delay <- aggregate( cbind( arr_delay ) ~ carrier , data = flights , FUN = sum )
+
+arrive_delay <- merge(arrive_delay, number_flights)
+arrive_delay$mean <- arrive_delay$arr_delay/arrive_delay$n
+
+
+barplot(arrive_delay[ ,4], names.arg = arrive_delay[ ,1], xlab = "Airline", ylab = "Minutes")
+```
+
+This is a histogram of the most common mean arrival time relative to the scheduled time of arrival for all airlines. 
+```{r}
+hist(arrive_delay$mean, xlab = "Mean Arrival Delay")
+```
+##### (d) Challenge Your Results
+
+After completing the exploratory analyses from Problem 1c, do you have any concerns about your findings? How well defined was your original question? Do you still believe this question can be answered using this dataset? Comment on any ethical and/or privacy concerns you have with your analysis. 
+
+I do not have any concerns regarding my findings. I find that the low cost airlines tend to have the longest delays, while the more expensive ones are relatively on time or even early in some cases. I think my original question was well defined. I purposely framed a question that I could answer because I didn't want to pose a question that was out of scope of the data set. I do not have any ethical or privacy concerns with this analysis in specific because it is very public data. 
+

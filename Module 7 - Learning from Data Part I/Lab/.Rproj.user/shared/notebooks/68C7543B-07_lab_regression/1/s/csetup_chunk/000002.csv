@@ -1,0 +1,15 @@
+"0","download.file(""https://www.openintro.org/book/statdata/index.php?data=nycflights"", destfile = ""data/flights.RData"")
+"
+"2","trying URL 'https://www.openintro.org/book/statdata/index.php?data=nycflights'
+"
+"2","downloaded 13 KB
+
+"
+"0","load(""data/flights.RData"")"
+"2","Warning:"
+"2"," file ‘flights.RData’ has magic number '<!DOC'
+  Use of save versions prior to 2 is deprecated
+"
+"2","Error in load(""data/flights.RData"") : 
+  bad restore file magic number (file may be corrupted) -- no data loaded
+"

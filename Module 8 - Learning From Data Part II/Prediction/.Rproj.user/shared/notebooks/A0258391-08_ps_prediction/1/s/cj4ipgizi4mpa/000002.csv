@@ -1,0 +1,5 @@
+"0","first <- nyc_flights[1:65380]
+"
+"2","Error in `[.data.frame`(nyc_flights, 1:65380) : 
+  undefined columns selected
+"

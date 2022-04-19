@@ -1,0 +1,29 @@
+---
+title: 'IMT 573: Code of Conduct'
+author: "Emma S. Spiro"
+date: 'Last Updated: June 15, 2021'
+output: html_document
+---
+
+
+## MSIM Academic Integrity and Community Standards
+
+Members, myself included, of the iSchool community expect their students to commit to the vision, mission, and values of the iSchool. The MSIM program community firmly believes that each individual should maintain the highest ethical standards in all of life's endeavors, including their academic work in the MSIM program. Therefore, we expect our students to exemplify excellence in their academic and professional work.
+
+In joining the MSIM program you pledge to maintain and uphold the community and academic integrity standards articulated in this document and the UW Community Standards and Student Conduct (CSSC) code. Further, you agree to seek assistance from the appropriate faculty or staff member if you have questions regarding community standards and student code of conduct or if your experience is being impacted by other students, specifically those not adhering to this pledge. 
+
+Students are expected to understand all UW Student Conduct Policies and abide by them. These expectations are contained in the [https://www.washington.edu/cssc/for-students/student-code-of-conduct/](Community Standards and Student Code of Conduct) (CSSC). You are responsible for the content of this code. Furthermore, the CSSC contains important information regarding your rights as a student and various resources available for your support. We strongly encourage you to spend some time reviewing the CSSC and utilizing the university resources.
+
+As a member of the UW community, you are expected to abide by the CSSC and use the University resources to support your success. 
+
+## Plagarism
+
+Programming plagiarism is using another person's code and claiming it as your own. Plagiarism is not acceptable and will be treated as academic dishonesty. Bottom line, we expect the utmost academic integrity from our students. We expect you to ask your instructors whether something constitutes a violation of academic integrity **before submitting the work**. Any queries you make before submitting work will be received with the utmost kindness, care, and understanding on the part of the faculty. 
+
+## Writing Code and Citing References
+
+Writing code is similar to academic writing in that **when you use or adapt code developed by someone else as part of your project, you must cite your source.**
+
+Please read the following to understand how cite sources when writing code. 
+
+[Academic Integrity at MIT: A Handbook for Students](https://integrity.mit.edu/handbook/writing-code)

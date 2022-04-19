@@ -1,0 +1,95 @@
+---
+title: 'IMT 573: Module 6 Lab'
+subtitle: 'Conditional Probability'
+author: "YOUR NAME HERE"
+date: 'Due: July 30, 2021'
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+<!-- This syntax can be used to add comments to a markdown file that are ignored during knitting process. -->
+##### Collaborators: <!-- BE SURE TO LIST ALL COLLABORATORS HERE! -->
+
+List collaborators here.
+
+### Objectives
+
+Conditional probability is a concept core to modeling data. In this lab exercise, we will work on framing questions in terms of conditional probabilities and computing probabilities to answer those questions. As you work through these questions you will be given opportunities to practice your data manipulation skills, as well as visualization skills. I encourage you to all explain the data anlaysis in written explanations. 
+
+### Instructions
+
+Before beginning this assignment, please ensure you have access to R and RStudio; this can be on your own personal computer or on the IMT 573 R Studio Cloud. 
+
+1. Open the `06_lab_condprob.Rmd` and save a copy to your local directory. Supply your solutions to the assignment by editing `06_lab_condprob.Rmd`. 
+
+2. First, replace the "YOUR NAME HERE" text in the `author:` field with your own full name. Any collaborators must be listed on the top of your assignment. 
+
+3. Be sure to include well-documented (e.g. commented) code chucks, figures, and clearly written text chunk explanations as necessary. Any figures should be clearly labeled and appropriately referenced within the text. Be sure that each visualization adds value to your written explanation; avoid redundancy -- you do no need four different visualizations of the same pattern.
+
+4.  Collaboration on problem sets is fun and useful, and I encourage it, but each student must turn in an individual write-up in their own words as well as code/work that is their own.  Regardless of whether you work with others, what you turn in must be your own work; this includes code and interpretation of results. The names of all collaborators must be listed on each assignment. Do not copy-and-paste from other students' responses or code.
+
+5. All materials and resources that you use (with the exception of lecture slides) must be appropriately referenced within your assignment.  
+
+6. When you have completed the assignment and have **checked** that your code both runs in the Console and knits correctly when you click `Knit`. When the PDF report is generated rename the knitted PDF file to `lab6_YourLastName_YourFirstName.pdf`, and submit the PDF file on Canvas.
+
+### Setup
+
+In this lab you will need, at minimum, the following R packages.
+
+```{r Setup, message=FALSE}
+# Load standard libraries
+library(tidyverse)
+library(knitr) # this will keep code on the page!
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+```
+
+**If a baseball team scores X runs, what is the probability it will win the game?**
+
+This is the question we will explore in this lab (adapted from Decision Science News, 2014). We will use a dataset of baseball game statistics from 2010-2013. 
+
+Baseball is a played between two teams who take turns batting and fielding. A run is scored when a player advances around the bases and returns to home plate. More information about the dataset can be found at http://www.retrosheet.org/.
+
+Data files can be found data folder on RStudio Cloud. Load them into one data.frame in R as shown below. Comment this code to demonstrate you understand how it works. 
+
+\textcolor{blue}{Note: More information about the dataset can be found at http://www.retrosheet.org/}
+
+```{r setup, message=FALSE}
+
+# Data can be obtained from http://www.retrosheet.org/ 
+# Data do not have column names on them. You can obtain 
+# column names from http://www.dangoldstein.com/flash/bball/cnames.txt
+
+# Read in the column names
+colNames <- read.csv("data/cnames.txt", header=TRUE)
+
+# Create an empty object to store the data
+baseballData <- NULL
+for (year in seq(2010,2013,by=1)){ # Loop through years to get all data
+  mypath <- paste('data/GL',year,'.TXT',sep='') # Create the path name for the file
+  # cat(mypath,'\n') # Tell me what file I am working on
+  # Read in the file and bind to data with correct column names
+  baseballData <- rbind(baseballData,read.csv(mypath,
+  col.names=colNames$Name))
+  baseballData <- as_tibble(baseballData)
+}
+baseballData
+```
+
+Select the following relevant columns and create a new local data.frame to store the data you will use for your analysis.
+
+- Date
+- Home
+- Visitor
+- HomeLeague
+- VisitorLeague
+- HomeScore
+- VisitorScore
+
+Considering only games between two teams in the National League, compute the conditional probability of the team winning given X runs scored, for $X = 0, ... , 10$. Do this separately for Home and Visitor teams.
+
+* Design a visualization that shows your results.
+* Discuss what you find.
+
+Extra Credit: Repeat the above problem, but now consider the probability of winning given the number of hits.

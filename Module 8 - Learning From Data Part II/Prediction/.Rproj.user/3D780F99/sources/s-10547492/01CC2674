@@ -1,0 +1,26 @@
+{
+    "id": "01CC2674",
+    "path": "/cloud/project/08_ps_prediction.Rmd",
+    "project_path": "08_ps_prediction.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1623565254103.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "51,57",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625682915,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625682915908,
+    "read_only": false,
+    "read_only_alternatives": []
+}

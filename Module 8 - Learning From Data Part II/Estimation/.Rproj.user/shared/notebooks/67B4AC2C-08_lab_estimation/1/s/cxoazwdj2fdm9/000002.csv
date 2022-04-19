@@ -1,0 +1,2 @@
+"0","p.parameter <- 0.8"
+"0","sequence <- rbinom(10, 1, p.parameter)"

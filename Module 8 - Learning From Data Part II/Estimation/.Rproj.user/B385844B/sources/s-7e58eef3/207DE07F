@@ -1,0 +1,27 @@
+{
+    "id": "207DE07F",
+    "path": "/cloud/project/08_lab_estimation.Rmd",
+    "project_path": "08_lab_estimation.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1638095803289.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "218,173",
+        "scrollLine": "12",
+        "last_setup_crc32": ""
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1638095825,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1638760701897,
+    "read_only": false,
+    "read_only_alternatives": []
+}
